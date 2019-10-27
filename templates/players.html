@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>Players</title>
+</head>
+<body>
+{% extends 'index.html' %}
+    {%block content %}
+    {{ super() }}
+    <p>This is players page</p>
+    {%endblock%}
+</body>
+</html>

@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
 import credentials
-from entities import Player
+from entities import Player, Bet, Bank
 
 
 class Database():
@@ -21,6 +21,8 @@ class Database():
     def __init__(self):
         self.connection = self.engine.connect()
         print("DB Instance created")
+
+    # Player
 
     def createPlayer(self, player):
         session = Session(bind=self.connection)
@@ -48,3 +50,67 @@ class Database():
         session.commit()
         print("Player deleted successfully!")
 
+    # Bet
+
+    def createBet(self, bet):
+        session = Session(bind=self.connection)
+        session.add(bet)
+        session.commit()
+        print("Bet created successfully!")
+
+    def updateBet(self, bet_id, bet_money, won_money, won_bet, bet_time):
+        session = Session(bind=self.connection)
+        dataToUpdate = {Bet.bet_money: bet_money, Bet.won_money: won_money,
+                        Bet.won_bet: won_bet, Bet.bet_time: bet_time}
+        betData = session.query(Bet).filter(Bet.bet_id == bet_id)
+        betData.update(dataToUpdate)
+        session.commit()
+        print("Bet updated successfully!")
+
+    def fetchAllBets(self):
+        self.session = Session(bind=self.connection)
+        bets = self.session.query(Bet).all()
+        return bets
+
+    def deleteBet(self, bet_id):
+        session = Session(bind=self.connection)
+        betData = session.query(Bet).filter(Bet.bet_id == bet_id).first()
+        session.delete(betData)
+        session.commit()
+        print("Bet deleted successfully!")
+
+    # Bank
+
+    def createBank(self, bank):
+        session = Session(bind=self.connection)
+        session.add(bank)
+        session.commit()
+        print("Bank created successfully!")
+
+    def updateBank(self, player_id, sold_time, sold_coins):
+        session = Session(bind=self.connection)
+        dataToUpdate = {Bank.sold_time: sold_time, Bank.sold_coins: sold_coins}
+        betData = session.query(Bank).filter(Bank.player_id == player_id)
+        betData.update(dataToUpdate)
+        session.commit()
+        print("Bank updated successfully!")
+
+    def updateBankWithTime(self, player_id, sold_time, sold_coins):
+        session = Session(bind=self.connection)
+        dataToUpdate = {Bank.sold_coins: sold_coins}
+        betData = session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time)
+        betData.update(dataToUpdate)
+        session.commit()
+        print("Bank updated successfully!")
+
+    def fetchAllBanks(self):
+        self.session = Session(bind=self.connection)
+        banks = self.session.query(Bank).all()
+        return banks
+
+    def deleteBank(self, player_id):
+        session = Session(bind=self.connection)
+        bankData = session.query(Bank).filter(Bank.player_id == player_id).first()
+        session.delete(bankData)
+        session.commit()
+        print("Bank deleted successfully!")
