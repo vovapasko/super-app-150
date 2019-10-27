@@ -3,19 +3,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 from sqlalchemy import TIMESTAMP
 
-
-cstr = 'postgresql://{user}:{password}@{sid}'.format(
-    user='postgres',
-    password='postgres',
-    sid='MyDb'
-)
-
-engine = create_engine(
-    cstr,
-    convert_unicode=False,
-    echo=True
-)
-
 Base = declarative_base()
 
 
@@ -34,17 +21,9 @@ class Bank(Base):
 
 
 class Bet(Base):
+    __tablename__ = "bet"
     bet_id = Column(Integer, primary_key=True)
     bet_money = Column(Float, nullable=False)
     won_money = Column(Float, nullable=False)
     won_bet = Column(Boolean, nullable=False)
     bet_time = Column(TIMESTAMP, nullable=False)
-
-
-
-Base.metadata.create_all(engine)
-
-session = Session()
-new_player = Player(player_id=123, player_balance=180000, passwrd="passwrd")
-
-
