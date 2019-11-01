@@ -30,7 +30,7 @@
         <td>{{bet.bet_time}}</td>
 
         <td class="d-flex justify-content-end">
-            <a href="#" class="btn btn-success">Edit</a>
+            <a href="{{url_for('update_bet', bet_id=bet.bet_id)}}" class="btn btn-success">Edit</a>
             <form method="post" class="delete-record">
                 <input type="submit" value="Delete" class="btn btn-danger"/>
             </form>
