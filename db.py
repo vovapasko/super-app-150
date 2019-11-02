@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
 import credentials
-from entities import Player, Bet, Bank
+from entities import Player, Bet, Bank, Casino, Usernames
 
 
 class Database():
@@ -49,6 +49,21 @@ class Database():
         session.delete(playerData)
         session.commit()
         print("Player deleted successfully!")
+
+    # casino
+
+    def delete_casino(self, player_id):
+        session = Session(bind=self.connection)
+        playerData = session.query(Casino).filter(Casino.player_id == player_id).first()
+        session.delete(playerData)
+        session.commit()
+
+    # username
+    def delete_username(self, player_id):
+        session = Session(bind=self.connection)
+        playerData = session.query(Usernames).filter(Usernames.player_id == player_id).first()
+        session.delete(playerData)
+        session.commit()
 
     # Bet
 

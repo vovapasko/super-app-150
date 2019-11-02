@@ -25,7 +25,7 @@ Create Table bet(
 );
 alter table bet add constraint bet_id_pk PRIMARY KEY(bet_id);
 
-create table casino if not exists(
+create table casino(
 	player_id int NOT NULL,
 	bet_id int NOT NULL
 );

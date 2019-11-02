@@ -27,9 +27,10 @@
         <td>{{player.passwrd}}</td>
         <td class="d-flex justify-content-end">
             <a href="{{url_for('update_player', player_id=player.player_id)}}" class="btn btn-success">Edit</a>
-            <form method="post" class="delete-record">
+            <form method="post" action="{{url_for('delete_player', player_id=player.player_id)}}" class="delete-record">
                 <input type="submit" value="Delete" class="btn btn-danger"/>
             </form>
+        </td>
     </tr>
     {% endfor %}
     </tbody>

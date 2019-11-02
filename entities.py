@@ -27,3 +27,17 @@ class Bet(Base):
     won_money = Column(Float, nullable=False)
     won_bet = Column(Boolean, nullable=False)
     bet_time = Column(TIMESTAMP, nullable=False)
+
+
+class Usernames(Base):
+    __tablename__ = "usernames"
+    player_id = Column(Integer, ForeignKey(Player.player_id), primary_key=True)
+    player_name = Column(String(64))
+    play_surname = Column(String(64))
+    player_nickname = Column(String(64), nullable=False)
+
+
+class Casino(Base):
+    __tablename__ = "casino"
+    player_id = Column(Integer, ForeignKey(Player.player_id), primary_key=True)
+    bet_id = Column(Integer, ForeignKey(Bet.bet_id), primary_key=True)
