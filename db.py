@@ -123,9 +123,9 @@ class Database():
         banks = self.session.query(Bank).all()
         return banks
 
-    def deleteBank(self, player_id):
+    def deleteBank(self, player_id, sold_time):
         session = Session(bind=self.connection)
-        bankData = session.query(Bank).filter(Bank.player_id == player_id).first()
+        bankData = session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time).filter().first()
         session.delete(bankData)
         session.commit()
         print("Bank deleted successfully!")
