@@ -30,7 +30,7 @@ def update_player(player_id):
     return render_template("update_player.html", player_id=player_id)
 
 
-@app.route('/players/delete_player/<player_id>', methods=["POST"])
+@app.route('/players/delete_player/<player_id>')
 def delete_player(player_id):
     database.deletePlayer(player_id)
     return redirect(url_for("players"))
@@ -46,10 +46,12 @@ def bets():
 def update_bet(bet_id):
     return render_template("update_bet.html", bet_id=bet_id)
 
-@app.route('/bets/delete_bet/<bet_id>', methods=["POST"])
+
+@app.route('/bets/delete_bet/<bet_id>')
 def delete_bet(bet_id):
     database.deleteBet(bet_id)
     return redirect(url_for("bets"))
+
 
 @app.route('/banks')
 def banks():
@@ -62,7 +64,7 @@ def update_bank(player_id, sold_time):
     return render_template("update_bank.html", player_id=player_id, sold_time=sold_time)
 
 
-@app.route('/banks/delete_bank/<player_id>/<sold_time>', methods=["POST"])
+@app.route('/banks/delete_bank/<player_id>/<sold_time>')
 def delete_bank(player_id, sold_time):
     database.deleteBank(player_id, sold_time)
     return redirect(url_for("banks"))
