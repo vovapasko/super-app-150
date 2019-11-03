@@ -43,6 +43,11 @@ class Database():
         players = self.session.query(Player).all()
         return players
 
+    def fetchPlayer(self, player_id):
+        self.session = Session(bind=self.connection)
+        player = self.session.query(Player).filter(Player.player_id == player_id).first()
+        return player
+
     def deletePlayer(self, player_id):
         session = Session(bind=self.connection)
         playerData = session.query(Player).filter(Player.player_id == player_id).first()

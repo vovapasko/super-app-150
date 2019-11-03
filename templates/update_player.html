@@ -9,7 +9,22 @@
 {% extends 'index.html' %}
 {%block content %}
 {{ super() }}
-<p>This page should update player with id = {{player_id}}</p>
+
+<form method="post">
+    {{form.hidden_tag()}}
+
+    <div class="form-group">
+        {{form.id.label}}
+        {{form.id}}
+        {{form.balance.label}}
+        {{form.balance}}
+        {{form.passwrd.label}}
+        {{form.passwrd}}
+
+    </div>
+    {{form.Submit(class_="btn btn-success")}}
+</form>
+
 {%endblock%}
 
 

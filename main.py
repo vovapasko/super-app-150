@@ -29,9 +29,19 @@ def players():
     return render_template("players.html", all_players=all_players)
 
 
-@app.route('/players/update/<player_id>')
+@app.route('/players/update/<player_id>', methods=["GET", "POST"])
 def update_player(player_id):
-    return render_template("update_player.html", player_id=player_id)
+    player_data = database.fetchPlayer(player_id)
+    form = PlayerForm(id=player_data.player_id,
+                      balance=player_data.balance,
+                      passwrd=player_data.passwrd)
+    if request.method == "POST":
+        balance = form.balance.data
+        passwrd = form.passwrd.data
+        database.updatePlayer(player_id, balance, passwrd)
+        return redirect(url_for("players"))
+
+    return render_template("update_player.html", form=form)
 
 
 @app.route('/players/delete_player/<player_id>')
