@@ -127,7 +127,7 @@ class Database():
 
     def fetchBank(self, player_id, sold_time):
         self.session = Session(bind=self.connection)
-        bank = self.session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time)
+        bank = self.session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time).first()
         return bank
 
     def deleteBank(self, player_id, sold_time):

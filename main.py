@@ -123,9 +123,19 @@ def banks():
     return render_template("bank.html", all_banks=all_banks)
 
 
-@app.route('/banks/<player_id>/<sold_time>')
+@app.route('/banks/<player_id>/<sold_time>', methods=["GET", "POST"])
 def update_bank(player_id, sold_time):
-    return render_template("update_bank.html", player_id=player_id, sold_time=sold_time)
+    bank_data = database.fetchBank(player_id, sold_time)
+    form = BankForm(
+        player_id=bank_data.player_id,
+        sold_time=bank_data.sold_time,
+        sold_coins=bank_data.sold_coins
+    )
+    if request.method == "POST":
+        sold_coins = form.sold_coins.data
+        database.updateBank(player_id, sold_time, sold_coins)
+        return redirect(url_for("banks"))
+    return render_template("update_bank.html", form=form)
 
 
 @app.route('/banks/delete_bank/<player_id>/<sold_time>')

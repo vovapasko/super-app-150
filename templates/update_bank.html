@@ -9,7 +9,19 @@
 {% extends 'index.html' %}
 {%block content %}
 {{ super() }}
-<p>This page should update bank with id = {{player_id}} and time = {{sold_time}}</p>
+
+<form method="post">
+    {{form.hidden_tag()}}
+
+    <div class="form-group">
+        {{form.sold_coins.label}}
+        {{form.sold_coins}}
+
+    </div>
+    {{form.Submit(class_="btn btn-success")}}
+</form>
+
+
 {%endblock%}
 
 </body>
