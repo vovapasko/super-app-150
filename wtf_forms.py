@@ -14,7 +14,7 @@ class BetForm(FlaskForm):
     bet_id = IntegerField('Id', validators=[DataRequired()])
     bet_money = FloatField('Money to bet', validators=[DataRequired()])
     won_money = FloatField('Win money', validators=[DataRequired()])
-    won_bet = BooleanField('Bet won?', validators=[DataRequired()])
+    won_bet = BooleanField('Bet won?')
     bet_time = StringField('Time of the bet', validators=[DataRequired()])
     Submit = SubmitField("Create")
 

@@ -72,9 +72,24 @@ def bets():
     return render_template("bet.html", all_bets=all_bets)
 
 
-@app.route('/bets/<bet_id>')
+@app.route('/bets/<bet_id>', methods=["GET", "POST"])
 def update_bet(bet_id):
-    return render_template("update_bet.html", bet_id=bet_id)
+    bet_data = database.fetchBet(bet_id)
+    form = BetForm(
+        bet_id=bet_data.bet_id,
+        bet_money=bet_data.bet_money,
+        won_money=bet_data.won_money,
+        won_bet=bet_data.won_bet,
+        bet_time=bet_data.bet_time
+    )
+    if request.method == "POST":
+        bet_money = form.bet_money.data
+        won_money = form.won_money.data
+        won_bet = form.won_bet.data
+        bet_time = form.bet_time.data
+        database.updateBet(bet_id, bet_money, won_money, won_bet, bet_time)
+        return redirect(url_for("bets"))
+    return render_template("update_bet.html", form=form)
 
 
 @app.route('/bets/delete_bet/<bet_id>')

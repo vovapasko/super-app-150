@@ -9,7 +9,25 @@
 {% extends 'index.html' %}
 {%block content %}
 {{ super() }}
-<p>This page should update Bet with id = {{bet_id}}</p>
+
+<form method="post">
+    {{form.hidden_tag()}}
+
+    <div class="form-group">
+        {{form.bet_money.label}}
+        {{form.bet_money}}
+        {{form.won_money.label}}
+        {{form.won_money}}
+        {{form.won_bet.label}}
+        {{form.won_bet}}
+        {{form.bet_time.label}}
+        {{form.bet_time}}
+
+
+    </div>
+    {{form.Submit(class_="btn btn-success")}}
+</form>
+
 {%endblock%}
 
 </body>

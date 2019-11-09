@@ -55,14 +55,6 @@ class Database():
         session.commit()
         print("Player deleted successfully!")
 
-    # casino
-
-    def delete_casino(self, player_id):
-        session = Session(bind=self.connection)
-        playerData = session.query(Casino).filter(Casino.player_id == player_id).first()
-        session.delete(playerData)
-        session.commit()
-
     # username
     def delete_username(self, player_id):
         session = Session(bind=self.connection)
@@ -92,6 +84,11 @@ class Database():
         bets = self.session.query(Bet).all()
         return bets
 
+    def fetchBet(self, bet_id):
+        self.session = Session(bind=self.connection)
+        bet = self.session.query(Bet).filter(Bet.bet_id == bet_id).first()
+        return bet
+
     def deleteBet(self, bet_id):
         session = Session(bind=self.connection)
         betData = session.query(Bet).filter(Bet.bet_id == bet_id).first()
@@ -118,8 +115,8 @@ class Database():
     def updateBankWithTime(self, player_id, sold_time, sold_coins):
         session = Session(bind=self.connection)
         dataToUpdate = {Bank.sold_coins: sold_coins}
-        betData = session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time)
-        betData.update(dataToUpdate)
+        bankData = session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time)
+        bankData.update(dataToUpdate)
         session.commit()
         print("Bank updated successfully!")
 
@@ -128,9 +125,15 @@ class Database():
         banks = self.session.query(Bank).all()
         return banks
 
+    def fetchBank(self, player_id, sold_time):
+        self.session = Session(bind=self.connection)
+        bank = self.session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time)
+        return bank
+
     def deleteBank(self, player_id, sold_time):
         session = Session(bind=self.connection)
-        bankData = session.query(Bank).filter(Bank.player_id == player_id).filter(Bank.sold_time == sold_time).filter().first()
+        bankData = session.query(Bank).filter(Bank.player_id == player_id).filter(
+            Bank.sold_time == sold_time).filter().first()
         session.delete(bankData)
         session.commit()
         print("Bank deleted successfully!")
