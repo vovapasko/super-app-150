@@ -30,7 +30,7 @@ create table casino(
 	bet_id int NOT NULL
 );
 alter table casino add constraint player_bet_id_pk PRIMARY KEY(player_id, bet_id);
---alter table casino add constraint player_fk FOREIGN KEY (player_id) REFERENCES player(player_id);
+--alter table casino add constrain  t player_fk FOREIGN KEY (player_id) REFERENCES player(player_id);
 --alter table casino add constraint bet_fk FOREIGN KEY (bet_id) REFERENCES bet(bet_id);
 
 CREATE table bank(
